@@ -1,11 +1,11 @@
 <?php
 
-namespace Katas\Tests;
+namespace Katas\Tests\Service;
 
-use Katas\ConverterRomanToArabicNumber;
+use Katas\Service\ConverterRomanToArabicNumberService;
 use PHPUnit\Framework\TestCase;
 
-class ConverterArabicToRomanNumberTest extends TestCase
+class ConverterArabicToRomanNumberServiceTest extends TestCase
 {
     /**
      * @Test
@@ -20,7 +20,7 @@ class ConverterArabicToRomanNumberTest extends TestCase
      */
     public function testArabicToRomanConversion(int $arabicDoneNumber, string $romanExpectedNumber): void
     {
-        $converter = new ConverterRomanToArabicNumber();
+        $converter = new ConverterRomanToArabicNumberService();
 
         $romanNumber = $converter->convert($arabicDoneNumber);
 

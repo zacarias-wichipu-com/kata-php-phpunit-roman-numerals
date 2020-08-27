@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Katas;
+namespace Katas\Service;
 
-class ConverterRomanToArabicNumber
+class ConverterRomanToArabicNumberService
 {
     const ROMAN_NUMBER_ONE = 'I';
     const ROMAN_NUMBER_FIVE = 'V';
