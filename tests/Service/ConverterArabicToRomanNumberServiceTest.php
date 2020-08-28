@@ -2,6 +2,8 @@
 
 namespace Katas\Tests\Service;
 
+use Katas\Exception\MaximunArabicNumberValueException;
+use Katas\Exception\MinimumArabicNumberValueException;
 use Katas\Service\ConverterRomanToArabicNumberService;
 use PHPUnit\Framework\TestCase;
 
@@ -27,6 +29,35 @@ class ConverterArabicToRomanNumberServiceTest extends TestCase
         $this->assertEquals($romanExpectedNumber, $romanNumber);
     }
 
+    /**
+     * @Test
+     */
+    public function testItDoesNotAllowConversionOfNumbersLessThanOne()
+    {
+        $this->expectException(MinimumArabicNumberValueException::class);
+
+        $converter = new ConverterRomanToArabicNumberService();
+
+        $converter->convert(0);
+    }
+
+    /**
+     * @Test
+     */
+    public function testItDoesNotAllowConversionOfNumbersEqualOrGreaterThanFourThousand()
+    {
+        $this->expectException(MaximunArabicNumberValueException::class);
+
+        $converter = new ConverterRomanToArabicNumberService();
+
+        $converter->convert(4000);
+    }
+
+
+    /**
+     * Data providers
+     */
+    
     /**
      * @return array[]
      */

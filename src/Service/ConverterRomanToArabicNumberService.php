@@ -3,6 +3,13 @@
 
 namespace Katas\Service;
 
+use Katas\Exception\MaximunArabicNumberValueException;
+use Katas\Exception\MinimumArabicNumberValueException;
+
+/**
+ * Class ConverterRomanToArabicNumberService
+ * @package Katas\Service
+ */
 class ConverterRomanToArabicNumberService
 {
     const ROMAN_NUMBER_ONE = 'I';
@@ -30,6 +37,8 @@ class ConverterRomanToArabicNumberService
      */
     public function convert(int $arabicNumber): ?string
     {
+        $this->validateReceivedArabicNumber($arabicNumber);
+
         $romanNumber                     = null;
         $arabicNumberDecreasingCounter   = $arabicNumber;
         $arabicToRomanNumbersEquivalence = $this->getDecreasingOrderedArabicToRomanNumbersEquivalence();
@@ -42,7 +51,7 @@ class ConverterRomanToArabicNumberService
 
                     if (substr((string)$arabic, 0, 1) === '1' && $initialRomanNumberRepetitions >= 4) {
                         $nextBaseFiveArabicToRomanNumberEquivalence = $this->getNextArabicToRomanNumbersEquivalence($arabic);
-                        if (! empty($nextBaseFiveArabicToRomanNumberEquivalence)) {
+                        if ( ! empty($nextBaseFiveArabicToRomanNumberEquivalence)) {
                             $nextArabic = key($nextBaseFiveArabicToRomanNumberEquivalence);
                             $nextRoman  = $nextBaseFiveArabicToRomanNumberEquivalence[$nextArabic];
 
@@ -80,6 +89,21 @@ class ConverterRomanToArabicNumberService
     /**
      * Private functions
      */
+
+    /** @param int $arabicNumber
+     *
+     * @throws MinimumArabicNumberValueException
+     */
+    private function validateReceivedArabicNumber(int $arabicNumber): void
+    {
+        if ($arabicNumber < 1) {
+            throw new MinimumArabicNumberValueException('The Arabic number is not acceptable to convert to a Roman number, its value must be greater than 0.');
+        }
+
+        if ($arabicNumber > 3999) {
+            throw new MaximunArabicNumberValueException('The Arabic number is not acceptable to convert to a Roman number, its value must be less than 4000.');
+        }
+    }
 
     /**
      * @return string[]
